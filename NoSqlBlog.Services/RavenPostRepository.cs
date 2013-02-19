@@ -6,6 +6,8 @@ namespace NoSqlBlog.Services
     using Core.Models;
     using Raven.Client;
     using System.Linq;
+    using Raven.Client.Document;
+    using Raven.Client.Embedded;
 
     public class RavenPostRepository : IPostRepository
     {
@@ -14,6 +16,12 @@ namespace NoSqlBlog.Services
         public RavenPostRepository(IDocumentStore store)
         {
             _store = store;
+        }
+
+        public RavenPostRepository()
+        {
+            _store = new EmbeddableDocumentStore();
+            _store.Initialize();
         }
 
         public IEnumerable<Post> GetRecentPosts(int postCount)
