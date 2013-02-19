@@ -3,13 +3,9 @@ namespace NoSqlBlog.UnitTests.Services
     using System;
     using System.Diagnostics;
     using NUnit.Framework;
-    using Raven.Client;
-    using Raven.Client.Embedded;
 
     public abstract class PostRepositoryTestBase
     {
-        
-
         protected T Time<T>(string label, Func<T> func)
         {
             var timer = new Stopwatch();
@@ -20,12 +16,28 @@ namespace NoSqlBlog.UnitTests.Services
             return result;
         }
 
-        
-
         [Test]
-        public abstract void RepositoryReturnsSpecifiedNumberOfPosts();
+        public abstract void GetRecentPostsReturnsSpecifiedNumberOfPosts();
 
         [Test]
         public abstract void RecentPostsReturnInCorrectOrder();
+
+        [Test]
+        public abstract void PostCanBeAdded();
+
+        [Test]
+        public abstract void PostCanBeDeleted();
+
+        [Test]
+        public abstract void PostHasIdAfterSaving();
+
+        [Test]
+        public abstract void CanAddACommentToAnExistingPost();
+
+        [Test]
+        public abstract void CommentsOnAPostAreReturnedInChronologicalOrder();
+
+        [Test]
+        public abstract void CommentsAreStillInOrderWhenOneIsAddedLater();
     }
 }

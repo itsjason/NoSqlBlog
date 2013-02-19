@@ -41,5 +41,22 @@ namespace NoSqlBlog.Services
                 session.SaveChanges();
             }
         }
+
+        public void UpdatePost(Post post)
+        {
+            using (var session = _store.OpenSession())
+            {
+                session.Store(post);
+                session.SaveChanges();
+            }
+        }
+
+        public Post GetById(int id)
+        {
+            using (var session = _store.OpenSession())
+            {
+                return session.Load<Post>(id);
+            }
+        }
     }
 }

@@ -8,5 +8,7 @@ namespace NoSqlBlog.Core.Interfaces
         IEnumerable<Post> GetRecentPosts(int postCount);
         void AddPost(Post post);
         void DeletePost(Post post);
+        void UpdatePost(Post post);
+        Post GetById(int id);
     }
 }
