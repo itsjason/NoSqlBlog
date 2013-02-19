@@ -2,12 +2,12 @@
 
 namespace NoSqlBlog.Services
 {
-    using System;
+    using Core.Interfaces;
     using Core.Models;
     using Raven.Client;
     using System.Linq;
 
-    public class RavenPostRepository
+    public class RavenPostRepository : IPostRepository
     {
         private readonly IDocumentStore _store;
 
@@ -26,12 +26,20 @@ namespace NoSqlBlog.Services
 
         public void AddPost(Post post)
         {
-            
+            using (var session = _store.OpenSession())
+            {
+                session.Store(post);
+                session.SaveChanges();
+            }
         }
 
         public void DeletePost(Post post)
         {
-            
+            using (var session = _store.OpenSession())
+            {
+                session.Delete(session.Load<Post>(post.Id));
+                session.SaveChanges();
+            }
         }
     }
 }
