@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoSqlBlog.Web", "NoSqlBlog.Web\NoSqlBlog.Web.csproj", "{AD5D8172-F3FF-41CD-950C-1348065EFA82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoSqlBlog.Core", "NoSqlBlog.Core\NoSqlBlog.Core.csproj", "{0F0C4086-92D6-4DD2-93EA-5170F85A4161}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4D97880B-A001-45E5-86AA-BE2981F317CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoSqlBlog.UnitTests.Core", "NoSqlBlog.UnitTests.Core\NoSqlBlog.UnitTests.Core.csproj", "{EF44AEFA-7DF7-46F1-B0AB-16830858C8E1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD5D8172-F3FF-41CD-950C-1348065EFA82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD5D8172-F3FF-41CD-950C-1348065EFA82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD5D8172-F3FF-41CD-950C-1348065EFA82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD5D8172-F3FF-41CD-950C-1348065EFA82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F0C4086-92D6-4DD2-93EA-5170F85A4161}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F0C4086-92D6-4DD2-93EA-5170F85A4161}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F0C4086-92D6-4DD2-93EA-5170F85A4161}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F0C4086-92D6-4DD2-93EA-5170F85A4161}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF44AEFA-7DF7-46F1-B0AB-16830858C8E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF44AEFA-7DF7-46F1-B0AB-16830858C8E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF44AEFA-7DF7-46F1-B0AB-16830858C8E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF44AEFA-7DF7-46F1-B0AB-16830858C8E1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EF44AEFA-7DF7-46F1-B0AB-16830858C8E1} = {4D97880B-A001-45E5-86AA-BE2981F317CC}
+	EndGlobalSection
+EndGlobal
