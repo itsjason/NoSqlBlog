@@ -1,0 +1,13 @@
+﻿@model NoSqlBlog.Core.Models.Post
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<div class="row">
+    <div class="span12">
+        @Model.Author
+        @Model.Title
+        @Model.CreatedAt
+    </div>
+</div>
