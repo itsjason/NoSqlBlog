@@ -1,0 +1,29 @@
+﻿@using System.Web.Optimization
+<html>
+    <head>
+        <title>@ViewBag.Title | NoSqlBlog</title>
+        @Styles.Render("~/Content/bootstrap")
+    </head>
+    <body>
+        <div class="wrapper">
+            <header class="container">
+                <h1>@ViewBag.Title</h1>
+            </header>
+
+            <div class="container">
+                @RenderBody()
+            </div>
+
+            <footer class="container">
+                <div class="row">
+                    <div class="span12 text-center">
+                        Here is the footer!
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/jQuery")
+        @Scripts.Render("~/bundles/bootstrap")
+    </body>
+</html>

@@ -1,6 +1,7 @@
 using System.Web.Optimization;
+using WebActivatorEx;
 
-[assembly: WebActivator.PostApplicationStartMethod(typeof(NoSqlBlog.Web.App_Start.BootstrapBundleConfig), "RegisterBundles")]
+[assembly: PostApplicationStartMethod(typeof(NoSqlBlog.Web.App_Start.BootstrapBundleConfig), "RegisterBundles")]
 
 namespace NoSqlBlog.Web.App_Start
 {
