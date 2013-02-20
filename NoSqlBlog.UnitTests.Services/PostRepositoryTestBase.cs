@@ -12,7 +12,7 @@ namespace NoSqlBlog.UnitTests.Services
             timer.Start();
             var result = func.Invoke();
             timer.Stop();
-            Console.WriteLine("Action: {0}, Time Taken: {1}", label, Math.Round((double)timer.ElapsedMilliseconds, 2));
+            Console.WriteLine("Action: {0}, Time Taken: {1}ms", label, Math.Round((double)timer.ElapsedMilliseconds, 2));
             return result;
         }
 

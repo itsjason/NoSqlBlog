@@ -141,20 +141,20 @@
         [Test]
         public override void CommentsAreStillInOrderWhenOneIsAddedLater()
         {
-            const string firstCommentName = "Commenter 1";
-            const string thirdCommentName = "Commenter 3";
+            const string FirstCommentName = "Commenter 1";
+            const string ThirdCommentName = "Commenter 3";
 
             var post = new Post() { Author = "Jason", Title = "Wow", Content = "Yep", Tags = new[] { "Hot" } };
             _repository.AddPost(post);
             WaitForIndexesToBeCurrent();
             
-            post.Comments.Add(new Comment { Name = firstCommentName, Email = "comment@comment.com", Content = "Halla!" });
+            post.Comments.Add(new Comment { Name = FirstCommentName, Email = "comment@comment.com", Content = "Halla!" });
             post.Comments.Add(new Comment { Name = "Commenter 2", Email = "comment@comment.com", Content = "Halla!" });
             _repository.UpdatePost(post);
             WaitForIndexesToBeCurrent();
 
             post = _repository.GetById(post.Id);
-            post.Comments.Add(new Comment { Name = thirdCommentName, Email = "comment@comment.com", Content = "Halla!" });
+            post.Comments.Add(new Comment { Name = ThirdCommentName, Email = "comment@comment.com", Content = "Halla!" });
             _repository.UpdatePost(post);
             WaitForIndexesToBeCurrent();
 
@@ -162,8 +162,8 @@
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Comments.Count, Is.EqualTo(3));
-            Assert.That(result.Comments.First().Name, Is.EqualTo(firstCommentName));
-            Assert.That(result.Comments.Last().Name, Is.EqualTo(thirdCommentName));
+            Assert.That(result.Comments.First().Name, Is.EqualTo(FirstCommentName));
+            Assert.That(result.Comments.Last().Name, Is.EqualTo(ThirdCommentName));
         }
 
         private void WaitForIndexesToBeCurrent()

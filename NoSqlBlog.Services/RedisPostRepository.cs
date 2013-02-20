@@ -7,6 +7,8 @@ namespace NoSqlBlog.Services
     using ServiceStack.Redis;
     using ServiceStack.Redis.Generic;
 
+    using System.Linq;
+
     public class RedisPostRepository : IPostRepository
     {
         private readonly IRedisClient _bareClient;
@@ -30,28 +32,41 @@ namespace NoSqlBlog.Services
             _client = _bareClient.As<Post>();
         }
 
+        private IRedisSortedSet<Post> RecentPosts { get { return _client.SortedSets["urn:Post:RecentPostsaaa"]; } }
+
         public IEnumerable<Post> GetRecentPosts(int postCount)
         {
-            throw new NotImplementedException();
-            //_client.AddItemToSortedSet(_client.Set);
+            return _client.GetAll().OrderByDescending(p => p.Id).Take(postCount);
+            //return _client.GetRangeFromSortedSetDesc(RecentPosts, upperBound, upperBound - postCount);
         }
 
         public void AddPost(Post post)
         {
             post.Id = this.GetNextPostId();
             _client.Store(post);
-            _client.Save();
+            RecentPosts.Add(post);
         }
 
         public void DeletePost(Post post)
         {
-            _client.Delete(post);
-            _client.Save();
+            var success = RecentPosts.Remove(post);
+            _client.DeleteById(post.Id);
+            if (!success)
+                throw new ArgumentException("Post not found.");
         }
 
         public void UpdatePost(Post post)
         {
-            AddPost(post);
+            var retrievedPost = _client.GetById(post.Id);
+
+            retrievedPost.Comments = post.Comments;
+            retrievedPost.Content = post.Content;
+            retrievedPost.CreatedAt = post.CreatedAt;
+            retrievedPost.Slug = post.Slug;
+            retrievedPost.Tags = post.Tags;
+            retrievedPost.Title = post.Title;
+
+            _client.Store(retrievedPost);
         }
 
         public Post GetById(int id)
@@ -61,9 +76,7 @@ namespace NoSqlBlog.Services
 
         private int GetNextPostId()
         {
-            const string PostIdKey = "PostIdentifierKey";
-            var id = (int)_bareClient.Increment(PostIdKey, 1);
-            return (id == 0) ? (int)_bareClient.Increment(PostIdKey, 1) : id;
+            return (int)_client.GetNextSequence();
         }
     }
 }
