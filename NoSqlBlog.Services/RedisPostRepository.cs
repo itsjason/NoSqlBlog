@@ -9,24 +9,25 @@ namespace NoSqlBlog.Services
 
     public class RedisPostRepository : IPostRepository
     {
+        private readonly IRedisClient _bareClient;
         private readonly IRedisTypedClient<Post> _client;
 
         public RedisPostRepository()
         {
-            var redisClient = new RedisClient();
-            _client = redisClient.As<Post>();
+            _bareClient = new RedisClient();
+            _client = _bareClient.As<Post>();
         }
 
-        public RedisPostRepository(string host, int port, string password)
+        public RedisPostRepository(string host, int port, string password = null)
         {
-            var redisClient = new RedisClient(host, port, password);
-            _client = redisClient.As<Post>();
+            _bareClient = new RedisClient(host, port, password);
+            _client = _bareClient.As<Post>();
         }
 
         public RedisPostRepository(Uri serverUri)
         {
-            var redisClient = new RedisClient(serverUri);
-            _client = redisClient.As<Post>();
+            _bareClient = new RedisClient(serverUri);
+            _client = _bareClient.As<Post>();
         }
 
         public IEnumerable<Post> GetRecentPosts(int postCount)
@@ -37,6 +38,7 @@ namespace NoSqlBlog.Services
 
         public void AddPost(Post post)
         {
+            post.Id = this.GetNextPostId();
             _client.Store(post);
             _client.Save();
         }
@@ -55,6 +57,13 @@ namespace NoSqlBlog.Services
         public Post GetById(int id)
         {
             return _client.GetById(id);
+        }
+
+        private int GetNextPostId()
+        {
+            const string PostIdKey = "PostIdentifierKey";
+            var id = (int)_bareClient.Increment(PostIdKey, 1);
+            return (id == 0) ? (int)_bareClient.Increment(PostIdKey, 1) : id;
         }
     }
 }
